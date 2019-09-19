@@ -1,0 +1,10 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs/slnx.sqlite
+/.vs/bamdst/v16/ipch/AutoPCH/bc0764a62fa1d7c7/BAMDST.ipch
+/.vs/bamdst/v16/.suo
+/.vs/bamdst/v16/Browse.VC.db
+/.vs/bamdst/v16/Browse.VC.opendb
+/.vs/ProjectSettings.json

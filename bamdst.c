@@ -988,8 +988,8 @@ int load_bamfiles(struct opt_aux *f, aux_t * a, bamflag_t * fs)
  
 struct regcov
 {
-    uint64_t cnt, cnt4, cnt10, cnt30, cnt100, cntx;
-    float    cov, cov4, cov10, cov30, cov100, covx;
+    uint64_t cnt, cnt4, cnt10, cnt30, cnt100, cntx, cnt20p;
+    float    cov, cov4, cov10, cov30, cov100, covx, cnv20p;
 };
 
 struct regcov * regcov_init()
@@ -1017,6 +1017,13 @@ uint64_t cntcov_cal(struct opt_aux *f,
 	if (f->cutoff && i < f->cutoff) cov->cntx += cnt->a[i];
     }
     if (rawcnt == 0) return 0;
+	float avg_depth20 = (float)* data / rawcnt * 0.2;
+	for (i = 0; i < cnt->m, ++i)
+	{
+		if (i < avg_depth20)cov->cnt20p += cnt->a[i]
+	}
+	cov->cnt20p = rawcnt - cov->cnt20p;
+	cov->cov20p = (float)cov->cnt20p / rawcnt * 100;
     cov->cnt = rawcnt - (uint64_t)cnt->a[0];
     cov->cnt4 = rawcnt - cov->cnt4;
     cov->cnt10 = rawcnt - cov->cnt10;
@@ -1187,6 +1194,7 @@ int print_report(struct opt_aux *f, aux_t * a, bamflag_t * fs)
 		sprintf(titles,"[Target] Coverage (>=%ux)", f->cutoff);
 		fprintf(fc, "%60s\t%.2f%%\n", titles, tarcov->covx);
 	    }
+		fprintf(fc, "%60s\t%.2f%%\n", "[Target] Coverage (>=20%Average depth)", tarcov->cov20p);
 	    //tgt regions
 	    fprintf(fc, "%60s\t%u\n", "[Target] Target Region Count", a->tgt_nreg); 
 	    fprintf(fc, "%60s\t%"PRIu64"\n", "[Target] Region covered > 0x", regcov->cnt);
