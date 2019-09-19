@@ -989,7 +989,7 @@ int load_bamfiles(struct opt_aux *f, aux_t * a, bamflag_t * fs)
 struct regcov
 {
     uint64_t cnt, cnt4, cnt10, cnt30, cnt100, cntx, cnt20p;
-    float    cov, cov4, cov10, cov30, cov100, covx, cnv20p;
+    float    cov, cov4, cov10, cov30, cov100, covx, cov20p;
 };
 
 struct regcov * regcov_init()
@@ -1018,9 +1018,9 @@ uint64_t cntcov_cal(struct opt_aux *f,
     }
     if (rawcnt == 0) return 0;
 	float avg_depth20 = (float)* data / rawcnt * 0.2;
-	for (i = 0; i < cnt->m, ++i)
+	for (i = 0; i < cnt->m; ++i)
 	{
-		if (i < avg_depth20)cov->cnt20p += cnt->a[i]
+		if (i < avg_depth20)cov->cnt20p += cnt->a[i];
 	}
 	cov->cnt20p = rawcnt - cov->cnt20p;
 	cov->cov20p = (float)cov->cnt20p / rawcnt * 100;
